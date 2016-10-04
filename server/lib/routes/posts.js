@@ -7,7 +7,7 @@ module.exports = router
   .get('', (request, response, next) => {
     Post.find()
     .lean()
-    .populate('xxx')
+    // .populate('title date content keyword')
     .then(posts => response.send(posts))
     .catch(error => {
       console.log('ERROR: We had trouble getting the post list', error);
@@ -17,7 +17,7 @@ module.exports = router
 
   .get('/:id', (request, response, next) => {
     Post.findById(request.params.id)
-    .populate('xxx')
+    // .populate('title date content keyword')
     .lean()
     .then(post => response.send(post))
     .catch(error => {
@@ -30,5 +30,28 @@ module.exports = router
     request.body.user = request.params.userId;
     new Post(request.body)
     .save()
-    .then(post => return Post.populate())
+    .then(post => response.send(post))
+    .catch(error => {
+      console.log('ERROR: We had trouble posting a new post', error);
+      next(error);
+    });
   })
+
+  .put('/:id', parser, (request, response, next) => {
+    Post.findByIdAndUpdate(request.params.id, request.body, {new:true, runvalidators:true})
+    .then(post => response.send(post))
+    .catch(error => {
+      console.log('ERROR: We had trouble updating the post', error);
+      next(error);
+    });
+  })
+
+  .delete('/:id', (resquest, response, next) => {
+    Post.find()
+    .remove()
+    .then(post => response.send(post))
+    .catch(error => {
+      console.log('ERROR: We had trouble deleting the post', error);
+      next(error);
+    });
+  });

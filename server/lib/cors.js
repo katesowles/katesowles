@@ -1,9 +1,9 @@
 module.exports = function cors(url) {
-  return (req, res, next) => {
-    //const url = '*';
-    res.header('Access-Control-Allow-Origin', url);
-    res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  return (request, response, next) => {
+    // const url = '*';
+    response.header('Access-Control-Allow-Origin', url);
+    response.header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, DELETE');
+    response.header('Access-Controll-Allow-Headers', 'Origin, X-Requsted-With, Content-Tyle, Accept');
     next();
   };
 };

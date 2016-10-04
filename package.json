@@ -8,6 +8,7 @@
     "server": "nodemon",
     "build": "webpack",
     "start": "env $(cat .env) webpack-dev-server --inline",
+    "backendonly": "npm run db & npm run server",
     "allthethings":"npm run db & npm run server & npm run build && npm start",
     "lint": "eslint **/*.js",
     "test": "exit 0"
